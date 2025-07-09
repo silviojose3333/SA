@@ -20,7 +20,7 @@ if(isset($_SESSION['id_usuario'])){
     $perfil=$stmtperfil->fetch(PDO::FETCH_ASSOC);
     $nome_perfil=$perfil['nome_perfil'];
 }
-
+$imagens=mostrarMelhores();
 $series=mostrarNovidades();
 $permissoes=[
     1=>["função"=>["adicionar_obra.php","relatorio.php","adicionar_adm.php"]],
@@ -89,6 +89,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </li>
         </ul>
     </nav>
+    <h1 class="titulo-principal">Melhor Avaliados</h1>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<div id="meuCarrossel" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <?php foreach ($imagens as $index => $item): ?>
+      <div class="carousel-item <?php if ($index === 0) echo 'active'; ?>">
+        <a href="detalhes_obra.php?nome=<?= $item['id_serie'] ?>">
+          <img src="<?= $item['imagem'] ?>" class="d-block w-100" alt="<?= $item['titulo'] ?>">
+          <div class="carousel-caption d-none d-md-block">
+            <h5><?= $item['titulo'] ?></h5>
+          </div>
+        </a>
+      </div>
+    <?php endforeach; ?>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#meuCarrossel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#meuCarrossel" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <h1 class="titulo-principal">Novidades</h1>
 

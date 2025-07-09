@@ -25,7 +25,22 @@ function confirmarAcao() {
     echo '</div>';
     echo '</div>';
 }
-
+function mostrarMelhores(){
+    global $pdo;
+    $sql_s_obra="SELECT s.*, ROUND(AVG(a.nota), 1) AS media_nota
+FROM serie s
+LEFT JOIN temporada t ON t.idserie = s.id_serie
+LEFT JOIN episodio e ON e.idtemporada = t.id_temporada
+LEFT JOIN avaliacao a ON a.idepisodio = e.id_episodio
+GROUP BY s.id_serie
+ORDER BY media_nota DESC
+LIMIT 5";
+    $stmt=$pdo->prepare($sql_s_obra);
+            
+    $stmt->execute();
+    $serie=$stmt->fetchAll();
+    return $imagem;
+}
 function mostrarNovidades(){
     global $pdo;
     $sql_s_obra="SELECT s.*, ROUND(AVG(a.nota), 1) AS media_nota
