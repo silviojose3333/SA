@@ -1,0 +1,113 @@
+body {
+    background-color: #000;
+    color: #FFD700;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0 20px;
+}
+
+/* Título e subtítulo */
+h2 {
+    margin-top: 40px;
+    font-size: 2rem;
+    color: #FFD700;
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.7);
+    text-align: center;
+}
+
+p {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+    color: #FFD700bb;
+}
+
+/* Formulário */
+form {
+    background-color: #111;
+    border: 2px solid #FFD700;
+    border-radius: 12px;
+    padding: 30px 25px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Labels */
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #FFD700;
+}
+
+/* Inputs de senha */
+input[type="password"] {
+    padding: 12px;
+    background-color: #222;
+    border: 1.5px solid #FFD700;
+    border-radius: 6px;
+    color: #FFD700;
+    font-size: 1rem;
+    box-shadow: inset 0 0 10px #FFD70055;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input[type="password"]:focus {
+    outline: none;
+    background-color: #2a2a2a;
+    border-color: #fff176;
+    box-shadow: 0 0 20px #fff176cc, inset 0 0 20px #fff176aa;
+}
+
+/* Checkbox mostrar senha */
+input[type="checkbox"] {
+    accent-color: #FFD700;
+    margin-right: 8px;
+}
+
+label input[type="checkbox"] {
+    transform: scale(1.2);
+    vertical-align: middle;
+}
+
+/* Botão de envio */
+button[type="submit"] {
+    background-color: transparent;
+    color: #FFD700;
+    border: 2px solid #FFD700;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+    box-shadow: 0 0 12px #FFD70088;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.25s ease;
+    margin-top: 10px;
+}
+
+button[type="submit"]:hover {
+    background-color: #FFD700;
+    color: #000;
+    transform: scale(1.05);
+    box-shadow: 0 0 24px #FFD700cc;
+}
+
+/* Responsivo */
+@media (max-width: 480px) {
+    form {
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 1.6rem;
+    }
+}

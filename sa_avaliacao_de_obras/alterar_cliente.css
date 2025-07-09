@@ -1,0 +1,142 @@
+body {
+    background-color: #000;
+    color: #ffd700;
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 2rem 1.25rem;
+    text-align: center;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h2 {
+    color: #ffd700;
+    font-weight: 700;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    max-width: 500px;
+    width: 100%;
+    border-bottom: 3px solid #ffd700;
+    padding-bottom: 0.5rem;
+    letter-spacing: 0.1em;
+    /* Neon suavizado */
+    text-shadow:
+      0 0 3px #ffd700aa,
+      0 0 6px #ffea0077,
+      0 0 10px #ffea0044;
+}
+
+form {
+    background: rgba(15, 15, 15, 0.85);
+    border: 1.5px solid #ffd700aa;
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    width: 100%;
+    max-width: 480px;
+    box-shadow:
+      0 0 10px #ffd70055,
+      inset 0 0 15px #ffd70033;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    backdrop-filter: saturate(180%) blur(6px);
+    transition: border-color 0.4s ease;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    color: #ffd700;
+    margin-bottom: 0.4rem;
+    text-align: left;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    /* Neon leve */
+    text-shadow:
+      0 0 2px #ffd700aa,
+      0 0 4px #ffea0055;
+}
+
+input[type="text"],
+input[type="email"] {
+    width: 100%;
+    padding: 0.9rem 1.1rem;
+    border: 2px solid #ffd700cc;
+    border-radius: 12px;
+    background-color: #121212;
+    color: #ffd700;
+    font-size: 1rem;
+    font-weight: 500;
+    box-shadow:
+      0 0 4px #ffd70033,
+      0 0 8px #ffea0022 inset;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus {
+    outline: none;
+    background-color: #1f1f1f;
+    border-color: #ffea00;
+    box-shadow:
+      0 0 12px #ffea0099,
+      0 0 18px #ffea0077 inset;
+}
+
+button[type="submit"] {
+    background-color: transparent;
+    color: #ffd700;
+    border: 2.5px solid #ffd700;
+    padding: 0.85rem 2.5rem;
+    font-size: 1.1rem;
+    border-radius: 14px;
+    cursor: pointer;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    /* Neon mais suave */
+    text-shadow:
+      0 0 5px #ffd700bb,
+      0 0 10px #ffea0055;
+    box-shadow:
+      0 0 10px #ffd70066,
+      0 0 15px #ffea0044;
+    transition:
+      background-color 0.35s ease,
+      color 0.35s ease,
+      transform 0.25s ease,
+      box-shadow 0.35s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #ffd700;
+    color: #000;
+    transform: scale(1.07);
+    box-shadow:
+      0 0 20px #ffd700cc,
+      0 0 30px #ffea0099,
+      0 0 40px #ffea0077;
+}
+
+.msg {
+    text-align: center;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.75rem;
+    border-radius: 12px;
+    background-color: #222;
+    border-left: 6px solid #ffd700;
+    width: 100%;
+    max-width: 480px;
+    box-shadow:
+      0 0 8px #ffd70044,
+      0 0 20px #ffea0044;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: #ffd700cc;
+}

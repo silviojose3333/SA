@@ -1,0 +1,117 @@
+body {
+    background-color: #0d0d0d;
+    color: #FFD700;
+    font-family: 'Georgia', serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+}
+
+h2 {
+    color: #FFD700;
+    margin-bottom: 25px;
+    font-size: 30px;
+    text-shadow: 1px 1px #000;
+    border-bottom: 2px solid #FFD700;
+    padding-bottom: 5px;
+    width: 100%;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+form.cadastrarUsuario {
+    background-color: #1a1a1a;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+    width: 100%;
+    max-width: 500px;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.cadastrarUsuario label {
+    display: block;
+    margin-bottom: 8px;
+    color: #FFD700;
+    width: 100%;
+    text-align: left;
+    font-weight: bold;
+}
+
+.cadastrarUsuario input[type="text"],
+.cadastrarUsuario input[type="email"],
+.cadastrarUsuario input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #FFD700;
+    border-radius: 4px;
+    background-color: #0d0d0d;
+    color: #FFD700;
+    box-sizing: border-box;
+    font-family: 'Georgia', serif;
+    font-size: 1rem;
+}
+
+.cadastrarUsuario input[type="text"]:focus,
+.cadastrarUsuario input[type="email"]:focus,
+.cadastrarUsuario input[type="password"]:focus {
+    outline: none;
+    border-color: #ffe658;
+    box-shadow: 0 0 5px rgba(255, 215, 0, 0.7);
+    background-color: #121212;
+}
+
+.cadastrarUsuario input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+.submitAddUsuario {
+    background-color: #000;
+    color: #FFD700;
+    border: 2px solid #FFD700;
+    padding: 12px 25px;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    margin-top: 15px;
+    font-family: 'Georgia', serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    align-self: center;
+}
+
+.submitAddUsuario:hover {
+    background-color: #FFD700;
+    color: #0d0d0d;
+    transform: scale(1.03);
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    body {
+        padding: 15px;
+    }
+    form.cadastrarUsuario {
+        padding: 20px;
+        margin: 10px;
+        max-width: 100%;
+    }
+    .submitAddUsuario {
+        max-width: 100%;
+    }
+}
