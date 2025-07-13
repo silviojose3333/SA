@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Novidades</title>
-    <link rel="stylesheet" href="principalll.css" />
+    <link rel="stylesheet" href="principall.css" />
     <script src="script.js"></script>
 </head>
 <body>
@@ -93,19 +93,67 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
+<style>
+  .carousel {
+    position: relative;
+    padding: 0 80px; /* espaço para as setas fora da imagem */
+  }
+
+  .carousel-item {
+    text-align: center;
+  }
+
+  .carousel-item img {
+    height: 672px; /* 7 polegadas */
+    width: 480px;  /* 5 polegadas */
+    object-fit: cover;
+    margin: 0 auto; /* centraliza a imagem */
+  }
+
+  .carousel-title {
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 1.25rem;
+  }
+
+  /* Move setas para fora da imagem */
+  .carousel-control-prev,
+  .carousel-control-next {
+    width: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .carousel-control-prev {
+    left: -60px;
+  }
+
+  .carousel-control-next {
+    right: -60px;
+  }
+</style>
+
 <div id="meuCarrossel" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-inner">
     <?php foreach ($imagens as $index => $item): ?>
       <div class="carousel-item <?php if ($index === 0) echo 'active'; ?>">
-        <a href="detalhes_obra.php?nome=<?= $item['id_serie'] ?>">
-          <img src="<?= $item['imagem'] ?>" class="d-block w-100" alt="<?= $item['titulo'] ?>">
-          <div class="carousel-caption d-none d-md-block">
-            <h5><?= $item['titulo'] ?></h5>
-          </div>
+        <a href="detales_obra.php?nome=<?= $item['id_serie'] ?>">
+        <?php $id=$item['id_serie'];
+                $temporadas=selecionarTemporada($id);
+                $temporada_f=selecionarTemporada1($id);
+                $episodio_f1=selecionarEpisodio1($temporada_f['id_temporada']);
+                $nota = $episodio_f1['media_nota'] !== null ? number_format($episodio_f1['media_nota'], 1) : '0.0';
+                ?>
+          <img src="<?= $item['imagem'] ?>" class="d-block" alt="<?=$index?>-<?= $item['nome_serie'] ?>-<?= $nota?>">
         </a>
+        <div class="carousel-title">
+        <?=htmlspecialchars($index)?>-<?= htmlspecialchars($item['nome_serie']) ?>-<?= htmlspecialchars($nota)?>
+        </div>
       </div>
     <?php endforeach; ?>
   </div>
+
   <button class="carousel-control-prev" type="button" data-bs-target="#meuCarrossel" data-bs-slide="prev">
     <span class="carousel-control-prev-icon"></span>
   </button>
@@ -115,7 +163,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
+<link rel="stylesheet" href="principall.css" />
     <h1 class="titulo-principal">Novidades</h1>
 
     <?php foreach($series as $serie): 
@@ -145,38 +193,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </button>
 </form>
-
+<?php $modal="meuModal"?>
 <?php if($id_perfil==2):?>
-    <button class="avaliarSerie" onclick="abrirModal('<?= htmlspecialchars($serie['nome_serie']);?>','<?= htmlspecialchars($serie['id_serie']);?>','meuModal')">Selecionar <?= htmlspecialchars($serie['nome_serie']) ?></button><br /><br />
+    <button class="avaliarSerie" onclick="abrirModal('<?= htmlspecialchars($serie['nome_serie']);?>','<?= htmlspecialchars($serie['id_serie']);?>','<?= htmlspecialchars($modal);?>')">Selecionar <?= htmlspecialchars($serie['nome_serie']) ?></button><br /><br />
 <?php else:?>
     <button class="avaliarSerie" onclick="pedidoLogar()">Selecionar <?= htmlspecialchars($serie['nome_serie']) ?></button><br /><br />
 <?php endif;?>
 
 <?php endif; endforeach;?>
 
-<div class="overlay" id="meuModal">
-  <form class="modal" method="POST" action="principal.php">
-    <h3>Confirmar seleção</h3>
-    <p>Você selecionou: <span id="nomeEscolhido"></span></p>
+<div id="<?= htmlspecialchars($modal);?>" class="overlay">
+  <div class="modal">
+    <form method="POST" action="principal.php">
+      <h3>Confirmar seleção</h3>
+      <p>Você selecionou: <span id="nomeEscolhido"></span></p>
 
-    <input type="hidden" name="serie" id="inputNome" />
-    <div class="star-rating" id="rating-container">
-    <span class="star" data-value="0">&#9733;</span>
-                <span class="star" data-value="1">&#9733;</span>
-                <span class="star" data-value="2">&#9733;</span>
-                <span class="star" data-value="3">&#9733;</span>
-                <span class="star" data-value="4">&#9733;</span>
-                <span class="star" data-value="5">&#9733;</span>
-                <span class="star" data-value="6">&#9733;</span>
-                <span class="star" data-value="7">&#9733;</span>
-                <span class="star" data-value="8">&#9733;</span>
-                <span class="star" data-value="9">&#9733;</span>
-                <input type="hidden" id="rating-value" name="rating" value="0" />
-    </div>
-    
-    <button type="submit">Enviar</button>
-    <button type="button" onclick="fechar('meuModal')">Cancelar</button>
-  </form>
+      <input type="hidden" name="serie" id="inputNome" />
+
+      <div class="star-rating" id="rating-container">
+        <span class="star" data-value="0">&#9733;</span>
+        <span class="star" data-value="1">&#9733;</span>
+        <span class="star" data-value="2">&#9733;</span>
+        <span class="star" data-value="3">&#9733;</span>
+        <span class="star" data-value="4">&#9733;</span>
+        <span class="star" data-value="5">&#9733;</span>
+        <span class="star" data-value="6">&#9733;</span>
+        <span class="star" data-value="7">&#9733;</span>
+        <span class="star" data-value="8">&#9733;</span>
+        <span class="star" data-value="9">&#9733;</span>
+        <input type="hidden" id="rating-value" name="rating" value="0" />
+      </div>
+
+      <button type="submit">Enviar</button>
+      <button type="button" onclick="fechar('<?= htmlspecialchars($modal);?>')">Cancelar</button>
+    </form>
+  </div>
 </div>
 
 <script>

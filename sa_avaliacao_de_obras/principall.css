@@ -331,106 +331,12 @@ form > button:hover .mostrarSerie img {
 }
 
 /* Modal overlay */
-.overlay {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw; height: 100vh;
-  background: rgba(0, 0, 0, 0.85);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 20000;
-  backdrop-filter: blur(8px);
-  padding: 40px 15px;
-}
 
-/* Estilo da janela modal */
-.modal {
-  background: rgba(17, 17, 17, 0.98);
-  border: 2px solid #FFD700;
-  padding: 40px 30px;
-  border-radius: 16px;
-  box-shadow: 0 0 18px rgba(255, 215, 0, 0.3), 0 0 28px rgba(255, 215, 0, 0.15);
-  max-width: 480px;
-  width: 100%;
-  color: #FFD700;
-  text-align: center;
-  font-family: 'Georgia', serif;
-  position: relative;
-}
 
 /* Título do modal */
-.modal h3 {
-  font-size: 1.8rem;
-  margin-bottom: 20px;
-  text-transform: uppercase;
-  text-shadow: 0 0 6px #FFD700;
-  border-bottom: 2px solid #FFD700;
-  padding-bottom: 10px;
-}
-
-/* Texto informativo */
-.modal p {
-  font-size: 1.1rem;
-  margin-bottom: 20px;
-}
-
-/* Span que exibe o nome da série selecionada */
-.modal span#nomeEscolhido {
-  font-weight: bold;
-  text-shadow: 0 0 2px #FFD700;
-}
-
-/* Estilo do container de estrelas */
-
-
-/* Botões dentro do modal */
-.modal button {
-  width: 100%;
-  max-width: 360px;
-  padding: 12px;
-  margin-top: 12px;
-  background-color: #000;
-  color: #FFD700;
-  border: 2px solid #FFD700;
-  border-radius: 10px;
-  font-weight: bold;
-  font-size: 1rem;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  font-family: 'Georgia', serif;
-  box-shadow: 0 0 8px rgba(255, 215, 0, 0.25);
-  text-shadow: 0 0 2px #FFD700;
-  transition: all 0.3s ease;
-}
-
-.modal button:hover {
-  background-color: #FFD700;
-  color: #000;
-  box-shadow: 0 0 14px rgba(255, 215, 0, 0.6);
-  transform: scale(1.04);
-}
 
 /* Responsividade */
-@media (max-width: 480px) {
-  .modal {
-    padding: 30px 20px;
-  }
 
-  .modal h3 {
-    font-size: 1.6rem;
-  }
-
-  .modal p {
-    font-size: 1rem;
-  }
-
- 
-
-  .modal button {
-    font-size: 0.95rem;
-  }
-}
 .star-rating {
   direction: ltr;
   font-size: 2.2rem;
@@ -451,4 +357,31 @@ form > button:hover .mostrarSerie img {
 .star.filled {
   color: #ffd700;
   filter: drop-shadow(0 0 5px #ffd700);
+}
+
+/* Overlay escuro com desfoque */
+.overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.85);
+  display: none; /* Escondido até que JS aplique 'flex' */
+  justify-content: center;
+  align-items: center;
+  z-index: 20000;
+  backdrop-filter: blur(8px);
+  padding: 40px 15px;
+}
+
+.modal {
+  background: #111;
+  border: 3px solid #ffd700;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 0 20px #ffd70099;
+  max-width: 500px;
+  width: 100%;
+  color: #ffd700;
+  text-align: center;
+  position: fixed;
 }

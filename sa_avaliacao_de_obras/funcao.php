@@ -39,7 +39,7 @@ LIMIT 5";
             
     $stmt->execute();
     $serie=$stmt->fetchAll();
-    return $imagem;
+    return $serie;
 }
 function mostrarNovidades(){
     global $pdo;

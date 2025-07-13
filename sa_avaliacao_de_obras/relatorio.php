@@ -25,7 +25,7 @@ function textoPDF($txt){
     return iconv('UTF-8','ISO-8859-1//TRANSLIT',$txt);
 }
 function limitarTexto($texto) {
-    $limite=60;
+    $limite=50;
     if (strlen($texto) <= $limite) {
         return $texto;
     } else {
@@ -34,9 +34,10 @@ function limitarTexto($texto) {
 }
 
 $generos=["ação","animação","aventura","biografia ou autobiografia","comedia","corrida","documentário","drama","esporte",
-"estratégia","fantasia","ficcao cientifica","fps","historico","isekai","josei","literatura clássica","mecha","mmorpg","uusical","nao ficcao",
+"estratégia","fantasia","ficcao cientifica","fps","historico","isekai","josei","literatura clássica","mecha","mmorpg","musical","nao ficcao",
 "plataforma","policial ou crime","puzzle","rpg","romance","seinen","shōjo","shōnen","simulação","slice of life","suspense ou thriller",
 "terror ou horror","terro psicológico","terror de sobrevivencia"];
+
 
 $pdf= new PDF();
 $pdf->AddPage();
@@ -62,113 +63,69 @@ try{$stmt->execute();
     error_log("Erro ao inserir cliente3:".$e->getMessage());
     echo"Erro ao cadastrar cliente3.";
 }
-$i=0;
+$i=1;
 
 foreach($obras_melhorA  as  $obra_melhorA){
-    $marginLeft = 10;
-
-    // Tamanho da imagem
-    $imgWidth = 50;
-    $imgHeight = 70; // ajuste se necessário
-
-    // Posição atual Y
-    $y = $pdf->GetY();
-
-    // Insere imagem no canto esquerdo
-  
-
-    // Define margem esquerda para o texto
-    $pdf->SetX($marginLeft);
+    $imageWidth = 50;
+    $imageHeight = 70;
     
+    // Margens
+    $marginTop = 10;
+    $marginLeft = 10;
+    $spacing = 5;
     
     if($obra_melhorA['ativo']==1 && $i<11){
-        $temporada_f=selecionarTemporada1($obra_melhorA['id_serie']);
-        $episodio_f1=selecionarEpisodio1($temporada_f['id_temporada']);
-        $sinopse_melhorA=limitarTexto($obra_melhorA['sinopse']);
-        $pdf->Image($obra_melhorA['imagem'], $marginLeft, $y, $imgWidth, $imgHeight);
-        $pdf->SetY($y + $imgHeight + 3);
-        $pdf->SetX($marginLeft);
-        $pdf->Cell(0,10,'nome da obra:'.textoPDF($obra_melhorA['nome_serie']),0,1,'L');
-        $pdf->Cell(0,10,'tipo da obra:'.textoPDF($obra_melhorA['tipo']),0,1,'L');
-        $pdf->Cell(0,10,'generos da obra:'.textoPDF($obra_melhorA['genero']),0,1,'L');
-        $pdf->Cell(0,10,'sinopse da obra:'.textoPDF($sinopse_melhorA),0,1,'L');
-        $nota = $episodio_f1['media_nota'] !== null ? number_format($episodio_f1['media_nota'], 1) : '0.0';
-        $pdf->Cell(0,10,'nota da obra:'.$nota.'/10',0,1,'L');
-        $i++;
-    }
-}
-
-$pdf->Cell(0,10,'Melhores Obras Avaliadas',0,1,'C');
-$nome=' ';
-$tipo=' ';
-$genero=[];
-$order='a';
-
-
-$sqlS_e="SELECT 
-s.*,
-COUNT(a.id_avaliacao) AS total_avaliacoes
-FROM 
-serie s
-JOIN 
-temporada t ON t.idserie = s.id_serie
-JOIN 
-episodio e ON e.idtemporada = t.id_temporada
-LEFT JOIN 
-avaliacao a ON a.idepisodio = e.id_episodio
-GROUP BY 
-s.id_serie, s.nome_serie
-ORDER BY 
-total_avaliacoes DESC";
-    $stmt=$pdo->prepare($sqlS_e);
-    try{$stmt->execute();
-        $obras_maisA=$stmt->fetchAll(PDO::FETCH_ASSOC);
-        }catch(PDOException $e){
-            error_log("Erro ao inserir cliente3:".$e->getMessage());
-            echo"Erro ao cadastrar cliente3.";
-        }
-
-$i=0;
-
-foreach($obras_maisA  as  $obra_maisA){
-
-    $marginLeft = 10;
-
-    // Tamanho da imagem
-    $imgWidth = 50;
-    $imgHeight = 70; // ajuste se necessário
-
-    // Posição atual Y
-    $y = $pdf->GetY();
-
     // Insere imagem no canto esquerdo
-  
-
+    $pdf->SetFont('Arial','b',18);
+    $pdf->Cell(0,10,$i.'.',0,1,'L');
+    $pdf->SetFont('Arial','',12);
     // Define margem esquerda para o texto
-    $pdf->SetX($marginLeft);
-    
-    if($obra_maisA['ativo']==1 && $i<11){
-        $temporada_f=selecionarTemporada1($obra_maisA['id_serie']);
-        $episodio_f1=selecionarEpisodio1($temporada_f['id_temporada']);
-        $sinopse_maisA=limitarTexto($obra_maisA['sinopse']);
-        $pdf->Image($obra_maisA['imagem'], $marginLeft, $y, $imgWidth, $imgHeight);
-        $pdf->SetY($y + $imgHeight + 3);
-        $pdf->SetX($marginLeft);
-        $pdf->Cell(0,10,'nome da obra:'.textoPDF($obra_maisA['nome_serie']),0,1,'L');
-        $pdf->Cell(0,10,'tipo da obra:'.textoPDF($obra_maisA['tipo']),0,1,'L');
-        $pdf->Cell(0,10,'generos da obra:'.textoPDF($obra_maisA['genero']),0,1,'L');
-        $pdf->Cell(0,10,'sinopse da obra:'.textoPDF($sinopse_maisA),0,1,'L');
-        $nota = $episodio_f1['media_nota'] !== null ? number_format($episodio_f1['media_nota'], 1) : '0.0';
-        $pdf->Cell(0,10,'nota da obra:'.$nota.'/10',0,1,'L');
-        $pdf->Cell(0,10,textoPDF('numero de avaliações da obra:').$obra_maisA['total_avaliacoes'],0,1,'L');
+    $x = $pdf->GetX();
+    $y = $pdf->GetY();
+    $temporada_f=selecionarTemporada1($obra_melhorA['id_serie']);
+    $episodio_f1=selecionarEpisodio1($temporada_f['id_temporada']);
+    $sinopse_melhorA=limitarTexto($obra_melhorA['sinopse']);
+    $genero_melhorA=limitarTexto($obra_melhorA['genero']);
+    // Adiciona a imagem
+    $pdf->Image($obra_melhorA['imagem'], $x, $y, $imageWidth, $imageHeight);
 
-        $i++;
+    // Posiciona o texto ao lado da imagem
+    $pdf->SetXY($x + $imageWidth + 10, $y + 5);
+    $pdf->Cell(0, 6,'nome da obra:'.textoPDF($obra_melhorA['nome_serie']), 0, 1);
+
+    $pdf->SetX($x + $imageWidth + 10);
+    $pdf->Cell(0, 6,'tipo da obra:'.textoPDF($obra_melhorA['tipo']), 0, 1);
+
+    $pdf->SetX($x + $imageWidth + 10);
+    $pdf->Cell(0, 6,'sinopse da obra:'.textoPDF($genero_melhorA), 0, 1);
+
+    $pdf->SetX($x + $imageWidth + 10);
+    $pdf->Cell(0, 6,'sinopse da obra:'.textoPDF($sinopse_melhorA), 0, 1);
+
+    $nota = $episodio_f1['media_nota'] !== null ? number_format($episodio_f1['media_nota'], 1) : '0.0';
+
+    $pdf->SetX($x + $imageWidth + 10);
+    $pdf->Cell(0, 6,'nota da obra:'.$nota.'/10', 0, 1);
+
+    // Espaço em branco (3 linhas)
+    $pdf->Ln(15);
+
+    // Mover para próxima posição vertical (abaixo da imagem)
+    $pdf->SetY($y + $imageHeight + 10);
+
+    // Se estiver perto do fim da página, adiciona nova página
+    if ($pdf->GetY() + $imageHeight > $pdf->GetPageHeight() - 20) {
+        $pdf->AddPage();
+    }
+    $i++;
     }
 }
+
 
 foreach($generos  as  $generoObra){
-    $pdf->Cell(0,10,'Relatorio do genero'.textoPDF($generoObra),0,1,'C');
-    $pdf->Cell(0,10,'Melhores Obras Avaliadas do genero '.textoPDF($generoObra),0,1,'C');
+    $pdf->SetFont('Arial','b',18);
+    $pdf->Cell(0,10,'Relatorio do genero '.textoPDF($generoObra),0,1,'C');
+    $pdf->SetFont('Arial','',12);
 $nome=' ';
 $tipo=' ';
 $genero=[];
@@ -190,111 +147,63 @@ try{$stmt->execute();
     error_log("Erro ao inserir cliente3:".$e->getMessage());
     echo"Erro ao cadastrar cliente3.";
 }
-$i=0;
-
+$i=1;
+if(empty($obras_melhorA)){
+    $pdf->Cell(0,10,textoPDF('--não tem obra do genero  '.$generoObra.' cadastrado--'),0,1,'C');
+}
 foreach($obras_melhorA  as  $obra_melhorA){
+    $imageWidth = 50;
+    $imageHeight = 70;
+    
+    // Margens
+    $marginTop = 10;
     $marginLeft = 10;
-
-    // Tamanho da imagem
-    $imgWidth = 50;
-    $imgHeight = 70; // ajuste se necessário
-
-    // Posição atual Y
-    $y = $pdf->GetY();
-
-    // Insere imagem no canto esquerdo
-  
-
-    // Define margem esquerda para o texto
-    $pdf->SetX($marginLeft);
+    $spacing = 5;
     
     if($obra_melhorA['ativo']==1 && $i<11){
-        $temporada_f=selecionarTemporada1($obra_melhorA['id_serie']);
-        $episodio_f1=selecionarEpisodio1($temporada_f['id_temporada']);
-        $sinopse_melhorA=limitarTexto($obra_melhorA['sinopse']);
-        $pdf->Image($obra_melhorA['imagem'], $marginLeft, $y, $imgWidth, $imgHeight);
-        $pdf->SetY($y + $imgHeight + 3);
-        $pdf->SetX($marginLeft);
-        $pdf->Cell(0,10,'nome da obra:'.textoPDF($obra_melhorA['nome_serie']),0,1,'L');
-        $pdf->Cell(0,10,'tipo da obra:'.textoPDF($obra_melhorA['tipo']),0,1,'L');
-        $pdf->Cell(0,10,'generos da obra:'.textoPDF($obra_melhorA['genero']),0,1,'L');
-        $pdf->Cell(0,10,'sinopse da obra:'.textoPDF($sinopse_melhorA),0,1,'L');
-        $nota = $episodio_f1['media_nota'] !== null ? number_format($episodio_f1['media_nota'], 1) : '0.0';
-        $pdf->Cell(0,10,'nota da obra:'.$nota.'/10',0,1,'L');
-
-        $i++;
-    }
-}
-
-$pdf->Cell(0,10,'Obras mais avaliadas do genero '.textoPDF($generoObra),0,1,'C');
-$nome=' ';
-$tipo=' ';
-$genero=[];
-$order='a';
-
-
-$sqlS_e="SELECT 
-s.*,
-COUNT(a.id_avaliacao) AS total_avaliacoes
-FROM 
-serie s
-JOIN 
-temporada t ON t.idserie = s.id_serie
-JOIN 
-episodio e ON e.idtemporada = t.id_temporada
-LEFT JOIN 
-avaliacao a ON a.idepisodio = e.id_episodio
-WHERE s.genero LIKE :genero
-GROUP BY 
-s.id_serie, s.nome_serie
-ORDER BY 
-total_avaliacoes DESC";
-    $stmt=$pdo->prepare($sqlS_e);
-    $genero_obra="%$generoObra%";
-    $stmt->bindParam(":genero",$genero_obra);
-    try{$stmt->execute();
-        $obras_maisA=$stmt->fetchAll(PDO::FETCH_ASSOC);
-        }catch(PDOException $e){
-            error_log("Erro ao inserir cliente3:".$e->getMessage());
-            echo"Erro ao cadastrar cliente3.";
-        }
-
-$i=0;
-
-foreach($obras_maisA  as  $obra_maisA){
-    $marginLeft = 10;
-
-    // Tamanho da imagem
-    $imgWidth = 50;
-    $imgHeight = 70; // ajuste se necessário
-
-    // Posição atual Y
-    $y = $pdf->GetY();
-
     // Insere imagem no canto esquerdo
-  
-
+    $pdf->SetFont('Arial','b',18);
+    $pdf->Cell(0,10,$i.'.',0,1,'L');
+    $pdf->SetFont('Arial','',12);
     // Define margem esquerda para o texto
-    $pdf->SetX($marginLeft);
-    
-    if($obra_maisA['ativo']==1 && $i<11){
-        $temporada_f=selecionarTemporada1($obra_maisA['id_serie']);
-        $episodio_f1=selecionarEpisodio1($temporada_f['id_temporada']);
-        
-        $sinopse_maisA=limitarTexto($obra_maisA['sinopse']);
-        $pdf->Image($obra_maisA['imagem'], $marginLeft, $y, $imgWidth, $imgHeight);
-        $pdf->SetY($y + $imgHeight + 3);
-        $pdf->SetX($marginLeft);
-        $pdf->Cell(0,10,'nome da obra:'.textoPDF($obra_maisA['nome_serie']),0,1,'L');
-        $pdf->Cell(0,10,'tipo da obra:'.textoPDF($obra_maisA['tipo']),0,1,'L');
-        $pdf->Cell(0,10,'generos da obra:'.textoPDF($obra_maisA['genero']),0,1,'L');
-        $pdf->Cell(0,10,'sinopse da obra:'.textoPDF($sinopse_maisA),0,1,'L');
-        $nota = $episodio_f1['media_nota'] !== null ? number_format($episodio_f1['media_nota'], 1) : '0.0';
-        $pdf->Cell(0,10,'nota da obra:'.$nota.'/10',0,1,'L');
-        $pdf->Cell(0,10,textoPDF('numero de avaliações da obra:').$obra_maisA['total_avaliacoes'],0,1,'L');
+    $x = $pdf->GetX();
+    $y = $pdf->GetY();
+    $temporada_f=selecionarTemporada1($obra_melhorA['id_serie']);
+    $episodio_f1=selecionarEpisodio1($temporada_f['id_temporada']);
+    $sinopse_melhorA=limitarTexto($obra_melhorA['sinopse']);
+    $genero_melhorA=limitarTexto($obra_melhorA['genero']);
+    // Adiciona a imagem
+    $pdf->Image($obra_melhorA['imagem'], $x, $y, $imageWidth, $imageHeight);
 
+    // Posiciona o texto ao lado da imagem
+    $pdf->SetXY($x + $imageWidth + 10, $y + 5);
+    $pdf->Cell(0, 6,'nome da obra:'.textoPDF($obra_melhorA['nome_serie']), 0, 1);
 
-        $i++;
+    $pdf->SetX($x + $imageWidth + 10);
+    $pdf->Cell(0, 6,'tipo da obra:'.textoPDF($obra_melhorA['tipo']), 0, 1);
+
+    $pdf->SetX($x + $imageWidth + 10);
+    $pdf->Cell(0, 6,'sinopse da obra:'.textoPDF($genero_melhorA), 0, 1);
+
+    $pdf->SetX($x + $imageWidth + 10);
+    $pdf->Cell(0, 6,'sinopse da obra:'.textoPDF($sinopse_melhorA), 0, 1);
+
+    $nota = $episodio_f1['media_nota'] !== null ? number_format($episodio_f1['media_nota'], 1) : '0.0';
+
+    $pdf->SetX($x + $imageWidth + 10);
+    $pdf->Cell(0, 6,'nota da obra:'.$nota.'/10', 0, 1);
+
+    // Espaço em branco (3 linhas)
+    $pdf->Ln(15);
+
+    // Mover para próxima posição vertical (abaixo da imagem)
+    $pdf->SetY($y + $imageHeight + 10);
+
+    // Se estiver perto do fim da página, adiciona nova página
+    if ($pdf->GetY() + $imageHeight > $pdf->GetPageHeight() - 20) {
+        $pdf->AddPage();
+    }
+    $i++;
     }
 }
 }
