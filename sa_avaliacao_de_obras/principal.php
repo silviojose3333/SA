@@ -208,6 +208,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 </style>
 
+<style>
+  .carousel {
+    position: relative;
+    padding: 0 80px; /* espaço para as setas fora da imagem */
+  }
+
+  .carousel-item {
+    text-align: center;
+  }
+
+  .carousel-item img {
+    height: 672px; /* 7 polegadas */
+    width: 480px;  /* 5 polegadas */
+    object-fit: cover;
+    margin: 0 auto; /* centraliza a imagem */
+  }
+
+  .carousel-title {
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 1.25rem;
+  }
+
+  /* Move setas para fora da imagem */
+  .carousel-control-prev,
+  .carousel-control-next {
+    width: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .carousel-control-prev {
+    left: -60px;
+  }
+
+  .carousel-control-next {
+    right: -60px;
+  }
+</style>
+
 <div id="meuCarrossel" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-inner">
     <?php foreach ($imagens as $index => $item): ?>
