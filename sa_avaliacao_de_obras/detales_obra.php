@@ -245,16 +245,16 @@
                   <input type="hidden" name="tipo_form" value="avaliacao">
                   <input type="hidden" name="nome" value="<?= htmlspecialchars($episodio_f['id_episodio']) ?>">
                   <div class="star-rating" id="rating-container">
-                    
+                  <span class="star" data-value="0">&#9733;</span>
                   <span class="star" data-value="1">&#9733;</span>
-                <span class="star" data-value="2">&#9733;</span>
-                <span class="star" data-value="3">&#9733;</span>
-                <span class="star" data-value="4">&#9733;</span>
-                <span class="star" data-value="5">&#9733;</span>
-                <span class="star" data-value="6">&#9733;</span>
-                <span class="star" data-value="7">&#9733;</span>
-                <span class="star" data-value="8">&#9733;</span>
-                <span class="star" data-value="9">&#9733;</span>
+                  <span class="star" data-value="2">&#9733;</span>
+                  <span class="star" data-value="3">&#9733;</span>
+                  <span class="star" data-value="4">&#9733;</span>
+                  <span class="star" data-value="5">&#9733;</span>
+                  <span class="star" data-value="6">&#9733;</span>
+                  <span class="star" data-value="7">&#9733;</span>
+                  <span class="star" data-value="8">&#9733;</span>
+                  <span class="star" data-value="9">&#9733;</span>
                     <input type="hidden" id="rating-value" name="rating" value="0">
                   </div>
                   <div class="botao-form">
@@ -308,16 +308,16 @@
                         <input type="hidden" name="tipo_form" value="avaliacao">
                         <input type="hidden" name="nome" value="<?= htmlspecialchars($episodio['id_episodio']) ?>">
                         <div class="star-rating" id="rating-container">
-                    
+                        <span class="star" data-value="0">&#9733;</span>
                         <span class="star" data-value="1">&#9733;</span>
-                <span class="star" data-value="2">&#9733;</span>
-                <span class="star" data-value="3">&#9733;</span>
-                <span class="star" data-value="4">&#9733;</span>
-                <span class="star" data-value="5">&#9733;</span>
-                <span class="star" data-value="6">&#9733;</span>
-                <span class="star" data-value="7">&#9733;</span>
-                <span class="star" data-value="8">&#9733;</span>
-                <span class="star" data-value="9">&#9733;</span>
+                        <span class="star" data-value="2">&#9733;</span>
+                        <span class="star" data-value="3">&#9733;</span>
+                        <span class="star" data-value="4">&#9733;</span>
+                        <span class="star" data-value="5">&#9733;</span>
+                        <span class="star" data-value="6">&#9733;</span>
+                        <span class="star" data-value="7">&#9733;</span>
+                        <span class="star" data-value="8">&#9733;</span>
+                        <span class="star" data-value="9">&#9733;</span>
                     <input type="hidden" id="rating-value" name="rating" value="0">
                   </div>
                   <div class="botao-form">
@@ -430,7 +430,7 @@ document.addEventListener('DOMContentLoaded', () => {
         stars.forEach(s => s.classList.remove('filled'));
 
         // Adiciona "filled" até a clicada
-        for (let i = 0; i < rating-1; i++) {
+        for (let i = 0; i < rating; i++)  {
           stars[i].classList.add('filled');
         }
       });

@@ -101,6 +101,31 @@ form.cadastrarUsuario {
     transform: scale(1.03);
 }
 
+/* Estilo botão Voltar */
+a.voltar {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    color: #FFD700;
+    border: 2px solid #FFD700;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    font-family: 'Georgia', serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    align-self: center;
+    background-color: transparent;
+}
+
+a.voltar:hover {
+    background-color: #FFD700;
+    color: #0d0d0d;
+    transform: scale(1.05);
+}
+
 /* Responsividade */
 @media (max-width: 600px) {
     body {
@@ -113,5 +138,9 @@ form.cadastrarUsuario {
     }
     .submitAddUsuario {
         max-width: 100%;
+    }
+    a.voltar {
+        max-width: 100%;
+        text-align: center;
     }
 }

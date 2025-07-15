@@ -258,10 +258,7 @@
   }
   
   .temporada-buttons button:hover,
-  .episodio-buttons button:hover,
-  button.episodioAvaliar:hover,
   button.temporadaAvaliar:hover,
-  button.episodioAlterar:hover,
   button.temporadaAlterar:hover,
   button.serieAvaliar:hover {
     background: #ffd700;

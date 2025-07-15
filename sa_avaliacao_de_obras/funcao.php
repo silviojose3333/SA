@@ -39,7 +39,7 @@ LIMIT 5";
             
     $stmt->execute();
     $serie=$stmt->fetchAll();
-    return $imagem;
+    return $serie;
 }
 function mostrarNovidades(){
     global $pdo;
@@ -189,7 +189,7 @@ function pesquisar($nome,$tipo,$genero,$order){
         
     $genero_p = implode("%", $genero);
     
-    $nomeParam = "%$nome%";
+    $nomeParam = "$nome%";
     $tipoParam = "%$tipo%";
     $generoParam = !empty($genero_p) ? "%$genero_p%" : "%";
     switch ($order) {

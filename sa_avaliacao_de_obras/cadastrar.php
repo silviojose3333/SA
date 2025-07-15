@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"]=="POST"){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de cliente</title>
-    <link rel="stylesheet" href="cadastrar.css">
+    <link rel="stylesheet" href="cadastrarr.css">
     <script src="script.js"></script>
     <!--ARQUIVO OPCIONAL PARA ESTILIZAR-->
 </head>
@@ -65,8 +65,9 @@ if ($_SERVER["REQUEST_METHOD"]=="POST"){
         <input type="checkbox" onclick="mostrarSenha()">Mostrar senha
         </label>
         <input type="hidden" name="idperfil" value="2">
-        <button class="submitAddUsuario" type="submit">Salvar nova senha</button>
-        <button type="submit" class="submitAddUsuario">Enviar codigo de verificação para o e-mail</button>
+        <button class="submitAddUsuario" type="submit">Cadastrar </button>
+        <button type="reset" class="submitAddUsuario">Limpar</button>
+        <a class="voltar" href="login.php">Voltar</a>
 
         
     </form>

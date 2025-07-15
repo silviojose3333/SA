@@ -53,7 +53,7 @@ if (!$usuario) {
 <head>
     <meta charset="UTF-8">
     <title>Editar Usuário</title>
-    <link rel="stylesheet" href="alterar_cliente.css">
+    <link rel="stylesheet" href="alterar_clientee.css">
 
 </head>
 <body>
@@ -73,7 +73,7 @@ if (!$usuario) {
 
     <button type="submit">Atualizar</button>
 </form>
-
+<a class="voltar" href="principal.php">Voltar</a>
 </body>
 </html>
 
